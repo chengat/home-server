@@ -2,7 +2,8 @@
 
 > **Project Goal:** Resurrection of an old AMD E2-9000 PC into a fully functional Home Lab, Media Server, and Local AI Host.
 
-<img width="3456" height="1992" alt="image" src="https://github.com/user-attachments/assets/61f4b262-5f59-4ccc-8fc5-97051399f86d" />
+<img width="3456" height="1952" alt="image" src="https://github.com/user-attachments/assets/1a9514c9-bdec-402a-bc31-155b0636a017" />
+
 
 
 
@@ -44,6 +45,7 @@ The server uses **Docker Compose** to orchestrate a suite of 15+ microservices. 
 | Service | Domain | Port | Description |
 | :--- | :--- | :--- | :--- |
 | **Navidrome** | `music-hs` | `4533` | Self-hosted Spotify alternative. |
+| **Plex** | `media-hs` | `32400` | Self-hosted Media Server. |
 | **Mealie** | `mealie-hs` | `9925` | Recipe manager and scraper. |
 | **FileBrowser** | `files-hs` | `6030` | Web-based file manager. |
 
@@ -54,6 +56,7 @@ I tested multiple Large Language Models (LLMs) to find the absolute limit of the
 
 | Model | Parameters | Verdict |
 | :--- | :--- | :--- |
+| **Gemma 3** | 270M | **Fastest, Daily Driver** |
 | **Qwen 2.5 Coder** | 0.5B | **Daily Driver (Coding)** |
 | **Llama 3.2** | 1B | Usable, but heavy |
 | **Gemma 2** | 2B | Usable, but too slow |
