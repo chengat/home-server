@@ -2,7 +2,8 @@
 
 > **Project Goal:** Resurrection of an old AMD E2-9000 PC into a fully functional Home Lab, Media Server, and Local AI Host.
 
-<img width="3456" height="1952" alt="image" src="https://github.com/user-attachments/assets/1a9514c9-bdec-402a-bc31-155b0636a017" />
+<img width="3456" height="1984" alt="image" src="https://github.com/user-attachments/assets/ef98fc02-8f93-4953-9bc0-e570df54deda" />
+
 
 
 
@@ -36,7 +37,6 @@ The server uses **Docker Compose** to orchestrate a suite of 15+ microservices. 
 | :--- | :--- | :--- | :--- |
 | **VS Code Server** | `vsc-hs` | `8888` | Remote development environment. |
 | **Stirling PDF** | `pdf-hs` | `8089` | Local PDF manipulation tools. |
-| **Reactive Resume**| `reactive-resume-hs` | `3002` | Open-source resume builder. |
 | **Excalidraw** | `whiteboard-hs` | `6001` | Virtual whiteboard. |
 | **Draw.io** | `drawio-hs` | `6025` | Professional diagramming tool. |
 | **FreshRSS** | `news-hs` | `6003` | Self-hosted RSS aggregator. |
