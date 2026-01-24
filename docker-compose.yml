@@ -179,7 +179,7 @@ services:
       - "4533:4533"
     volumes:
       - navidrome-data:/data
-      - ~/music:/music:ro
+      - /home/youruser/music:/music:ro
 
   # FileBrowser
   filebrowser:
@@ -206,7 +206,7 @@ services:
       - PLEX_CLAIM= # Optional
     volumes:
       - plex-config:/config
-      - ~/media:/data
+      - /home/youruser/media:/data
     devices:
       - /dev/dri:/dev/dri
 
