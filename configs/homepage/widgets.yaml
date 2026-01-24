@@ -1,0 +1,34 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/info-widgets/
+- stocks:
+    provider: finnhub
+    color: true # optional, defaults to true
+    cache: 1 # optional, default caches results for 1 minute
+    watchlist:
+      - AAPL
+      - NVDA
+      - TSLA
+      - MSFT
+      - GOOGL
+      
+- datetime:
+    text_size: xl
+    format:
+      timeStyle: short
+      dateStyle: long
+    
+- resources:
+    cpu: true
+    memory: true
+    disk: /
+
+- openmeteo:
+    label: Toronto
+    latitude: 43.7578628,
+    longitude: -79.5927151
+    timezone: America/Toronto
+    units: metric
+    cache: 5 # Caches for 5 minutes to save data
+    
+

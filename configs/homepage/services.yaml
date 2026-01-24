@@ -1,0 +1,109 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/services/
+
+- Media & Lifestyle:
+    - Navidrome:
+        icon: navidrome.png
+        href: https://music-hs.nikhilnchengat.com/
+        description: Music Server
+        ping: http://192.168.2.217:4533
+    
+    - Plex:
+        icon: plex.png
+        href: https://media-hs.nikhilnchengat.com/
+        description: Media Server
+        ping: http://192.168.2.217:32400
+
+    - Mealie:
+        icon: mealie.png
+        href: https://mealie-hs.nikhilnchengat.com/
+        description: "Recipe Manager"
+        ping: http://192.168.2.217:9925
+ 
+    - FileBrowser:
+        icon: filebrowser.png
+        href: https://files-hs.nikhilnchengat.com
+        description: "Web File Manager"
+        ping: http://192.168.2.217:6030
+
+- Privacy & Infrastructure:
+    - System Health:
+        icon: uptime-kuma.png
+        href: https://system-health-hs.nikhilnchengat.com/status/health
+        description: Overall Server Status
+        ping: https://192.168.2.217:3001
+        widget:
+            type: uptimekuma
+            url: http://172.17.0.1:3001
+            slug: health
+    - Pi-hole:
+        icon: pi-hole.png
+        href: https://pi-hole-hs.nikhilnchengat.com/admin
+        description: Network Ad Blocker
+        ping: http://192.168.2.217:8082/admin
+        widget:
+            type: pihole
+            url: http://192.168.2.217:8082
+            key: "{{HOMEPAGE_VAR_PIHOLE_KEY}}"
+            version: 6
+            
+    - Portainer:
+        icon: portainer.png
+        href: https://portainer-hs.nikhilnchengat.com/
+        description: Docker Management
+        ping: https://192.168.2.217:9443
+    
+    - Nginx Proxy Manager:
+        icon: nginx-proxy-manager.png
+        href: https://npm-hs.nikhilnchengat.com
+        description: "Domain & Proxy Management"
+        ping: http://192.168.2.217:81
+    
+
+
+- Development & Productivity:
+    - VS Code:
+        icon: vscode.png
+        href: https://vsc-hs.nikhilnchengat.com/
+        description: Remote IDE
+        ping: http://192.168.2.217:8888
+
+    - Reactive Resume:
+        icon: reactive-resume.png
+        href: https://reactive-resume-hs.nikhilnchengat.com/
+        description: CV Builder
+        ping: http://192.168.2.217:3002
+
+    - Stirling PDF:
+        icon: stirling-pdf.png
+        href: https://pdf-hs.nikhilnchengat.com/
+        description: PDF Tools
+        ping: http://192.168.2.217:8089
+
+    - FreshRSS:
+        icon: freshrss.png
+        href: https://news-hs.nikhilnchengat.com
+        description: "News & Blog Feeds"
+        ping: http://192.168.2.217:6003
+
+    - Excalidraw:
+        icon: excalidraw.png
+        href: https://whiteboard-hs.nikhilnchengat.com
+        description: "Virtual Whiteboard"
+        ping: http://192.168.2.217:6001
+
+    - Draw.io:
+        icon: draw-io.png
+        href: https://drawio-hs.nikhilnchengat.com
+        description: "Professional Diagrams"
+        ping: http://192.168.2.217:6025
+
+- AI:
+    - Open WebUI:
+        icon: open-webui.png
+        href: https://llm-hs.nikhilnchengat.com/
+        description: "Local Qwen 2.5 Coder"
+        ping: http://192.168.2.217:3005
+
+
