@@ -16,7 +16,7 @@ This project runs entirely on recycled hardware. The goal was to build a modern 
 * **Constraint:** The CPU struggles with AI models >1 Billion parameters, requiring extreme optimization and model selection.
 
 ## 🏗️ Architecture & Services
-The server uses **Docker Compose** to orchestrate a suite of 15+ microservices. All services are secured behind **Nginx Proxy Manager** with Cloudflare DNS and strict firewall rules.
+The server uses **Docker Compose** to orchestrate a suite of 15+ microservices. All services are secured behind **Nginx Proxy Manager** with Cloudflare DNS and strict firewall rules. **Watchtower** is setup to update the apps and delete the old unused files to free up space.
 
 ### 🧠 The AI Stack (Local LLMs)
 | Service | Domain | Port | Description |
