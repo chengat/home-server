@@ -1,0 +1,228 @@
+version: "3.8"
+
+services:
+  ###########################################################################
+  # CORE INFRASTRUCTURE
+  ###########################################################################
+
+  # Nginx Proxy Manager - Security & Domains
+  npm:
+    image: "jc21/nginx-proxy-manager:latest"
+    container_name: npm
+    restart: always
+    ports:
+      - "80:80"
+      - "81:81"
+      - "443:443"
+    volumes:
+      - npm-data:/data
+      - npm-letsencrypt:/etc/letsencrypt
+
+  # Uptime Kuma - System Health
+  uptime-kuma:
+    image: louislam/uptime-kuma:1
+    container_name: uptime-kuma
+    restart: unless-stopped
+    volumes:
+      - uptime-kuma:/app/data
+    ports:
+      - "3001:3001"
+
+  # Homepage - The Dashboard
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    restart: unless-stopped
+    environment:
+      # Allows your specific IP. You can also use "*" to allow everything.
+      - HOMEPAGE_ALLOWED_HOSTS=*
+      - HOMEPAGE_VAR_PIHOLE_KEY=${HOMEPAGE_VAR_PIHOLE_KEY}
+    volumes:
+      - ./configs/homepage:/app/config
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - "8081:3000"
+
+  # Pi-hole - Ad Blocker
+  pihole:
+    image: pihole/pihole:latest
+    container_name: pihole
+    restart: unless-stopped
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "8082:80"
+    environment:
+      - TZ=America/Toronto
+      - WEBPASSWORD=${PIHOLE_WEB_PASSWORD}
+    volumes:
+      - pihole-etc:/etc/pihole
+      - pihole-dnsmasq:/etc/dnsmasq.d
+
+  ###########################################################################
+  # PRODUCTIVITY & DEV
+  ###########################################################################
+
+  # VS Code Server
+  code-server:
+    image: lscr.io/linuxserver/code-server:latest
+    container_name: code-server
+    restart: unless-stopped
+    environment:
+      - PASSWORD=${CODE_SERVER_PASSWORD}
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Toronto
+    volumes:
+      - code-data:/config
+    ports:
+      - "8888:8443"
+
+  # Stirling PDF
+  stirling-pdf:
+    image: stirlingtools/stirling-pdf:latest
+    container_name: stirling-pdf
+    ports:
+      - 8089:8080
+    volumes:
+      - ./stirling-pdf/training:/usr/share/tessdata # For OCR
+      - ./stirling-pdf/configs:/configs
+      - ./stirling-pdf/logs:/logs
+    environment:
+      - DOCKER_ENABLE_SECURITY=false
+    restart: unless-stopped
+
+  # FreshRSS
+  freshrss:
+    image: lscr.io/linuxserver/freshrss:latest
+    container_name: freshrss
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Toronto
+    volumes:
+      - freshrss-config:/config
+    ports:
+      - "6003:80"
+
+  # Excalidraw
+  excalidraw:
+    image: excalidraw/excalidraw:latest
+    container_name: excalidraw
+    restart: unless-stopped
+    ports:
+      - "6001:80"
+
+  # Draw.io
+  drawio:
+    image: jgraph/drawio:latest
+    container_name: drawio
+    restart: unless-stopped
+    ports:
+      - "6025:8080"
+
+  ###########################################################################
+  # AI & MEDIA
+  ###########################################################################
+
+  # Ollama & Open WebUI
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    restart: always
+    volumes:
+      - ollama:/root/.ollama
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    restart: always
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+    volumes:
+      - open-webui:/app/backend/data
+    ports:
+      - "3005:8080"
+    depends_on:
+      - ollama
+
+  # Mealie
+  mealie:
+    image: ghcr.io/mealie-recipes/mealie:v1.0.0
+    container_name: mealie
+    restart: always
+    ports:
+      - "9925:9000"
+    deploy:
+      resources:
+        limits:
+          memory: 1000M # Capped at 1GB RAM for safety
+    volumes:
+      - mealie-data:/app/data/
+    environment:
+      - ALLOW_SIGNUP=false
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Toronto
+      - BASE_URL=http://192.168.2.217:9925
+
+  # Navidrome
+  navidrome:
+    image: deluan/navidrome:latest
+    container_name: navidrome
+    restart: unless-stopped
+    environment:
+      # Optional: Scans your library every hour
+      ND_SCANSCHEDULE: 1h
+    ports:
+      - "4533:4533"
+    volumes:
+      - navidrome-data:/data
+      - ~/music:/music:ro
+
+  # FileBrowser
+  filebrowser:
+    image: filebrowser/filebrowser:latest
+    container_name: filebrowser
+    restart: unless-stopped
+    volumes:
+      - /:/srv
+      - fb-data:/database
+      - fb-config:/config
+    ports:
+      - "6030:80"
+    environment:
+      - FB_BASEURL=/
+
+  # Plex
+  plex:
+    image: plexinc/pms-docker:latest
+    container_name: plex
+    restart: always
+    network_mode: host
+    environment:
+      - TZ=America/Toronto
+      - PLEX_CLAIM= # Optional
+    volumes:
+      - plex-config:/config
+      - ~/media:/data
+    devices:
+      - /dev/dri:/dev/dri
+
+volumes:
+  npm-data:
+  npm-letsencrypt:
+  uptime-kuma:
+  homepage:
+  pihole-etc:
+  pihole-dnsmasq:
+  code-data:
+  freshrss-config:
+  fb-data:
+  fb-config:
+  mealie-data:
+  navidrome-data:
+  plex-config:
+  ollama:
+  open-webui:
